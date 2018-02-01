@@ -26,10 +26,12 @@ Rxjava的看起来很想设计模式中的观察者模式，但是有一点明�
 # 基本用法 
 
 一、Observable的创建
-**1、使用create( ),最基本的创建方式：**
-**//被观察者 相当于Button  第一种创建方式**
-        Observable observable = Observable.create(new Observable.OnSubscribe<Object>() {
 
+1、使用create( ),最基本的创建方式
+
+//被观察者 相当于Button  第一种创建方式
+
+        Observable observable = Observable.create(new Observable.OnSubscribe<Object>() {
             @Override
             public void call(Subscriber<? super Object> subscriber) {
                 subscriber.onNext("Hello");
