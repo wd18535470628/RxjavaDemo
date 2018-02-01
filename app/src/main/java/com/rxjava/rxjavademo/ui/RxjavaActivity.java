@@ -1,12 +1,16 @@
 package com.rxjava.rxjavademo.ui;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.rxjava.rxjavademo.R;
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,6 +35,14 @@ public class RxjavaActivity extends AppCompatActivity {
     Button rxjava4;
     @Bind(R.id.rxjava5)
     Button rxjava5;
+    @Bind(R.id.rxjava6)
+    Button rxjava6;
+    @Bind(R.id.rxjava7)
+    Button rxjava7;
+    @Bind(R.id.rxjava8)
+    Button rxjava8;
+    @Bind(R.id.rxjava9)
+    Button rxjava9;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +51,7 @@ public class RxjavaActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.rxjava, R.id.rxjava2, R.id.rxjava3, R.id.rxjava4, R.id.rxjava5})
+    @OnClick({R.id.rxjava, R.id.rxjava2, R.id.rxjava3, R.id.rxjava4, R.id.rxjava5, R.id.rxjava6, R.id.rxjava7, R.id.rxjava8, R.id.rxjava9})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rxjava:
@@ -57,7 +69,126 @@ public class RxjavaActivity extends AppCompatActivity {
             case R.id.rxjava5:
                 SubscriberRxjava();
                 break;
+            case R.id.rxjava6:
+                LongTimegetDataRxjava();
+                break;
+            case R.id.rxjava7:
+                FoursRxjava();
+                break;
+            case R.id.rxjava8:
+                FiveRxjava();
+                break;
+            case R.id.rxjava9:
+                SixRxjava();
+                break;
         }
+    }
+
+    private void SixRxjava() {
+
+        //3秒后发射一个值 重复反射三次
+        Observable.timer(3, TimeUnit.SECONDS)
+                .repeat(3)
+                .subscribe(new Subscriber<Long>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long aLong) {
+                        Log.e(TAG, aLong + " ");
+                    }
+                });
+    }
+
+    private void FiveRxjava() {
+        //将发送整数10，11，12，13，14
+        Observable.range(10, 3)
+                .subscribe(new Subscriber<Integer>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onError");
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        Log.e(TAG, integer + " ");
+                    }
+                });
+    }
+
+    private void FoursRxjava() {
+
+        //每隔一秒发送一次
+        Observable.interval(1, TimeUnit.SECONDS)
+                .subscribe(new Subscriber<Long>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long aLong) {
+                        Log.e(TAG, aLong + " ");
+                    }
+                });
+
+    }
+
+    private void LongTimegetDataRxjava() {
+
+        Observable.create(new Observable.OnSubscribe<String>() {
+
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                subscriber.onNext("我要开始睡觉了");
+
+                SystemClock.sleep(5000);
+                subscriber.onNext("我睡了5秒钟");
+
+                SystemClock.sleep(4000);
+                subscriber.onNext("我又睡了4秒钟");
+
+                SystemClock.sleep(3000);
+                subscriber.onNext("在睡3秒钟就起床");
+
+                subscriber.onCompleted();
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.e(TAG, "好了，起床了");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onError() e=" + e);
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        Toast.makeText(RxjavaActivity.this, s, Toast.LENGTH_SHORT).show(); //UI view显示数据
+                    }
+                });
     }
 
     private void SubscriberRxjava() {

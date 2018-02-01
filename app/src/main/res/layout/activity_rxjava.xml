@@ -30,6 +30,28 @@
         />
     <Button
         android:layout_marginTop="10dp"
+        android:id="@+id/rxjava7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rxjava第四种被观察者interval"
+        />
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/rxjava8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rxjava第五种被观察者range"
+        />
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/rxjava9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rxjava第六种被观察者timer"
+        />
+    <Button
+        android:layout_marginTop="10dp"
         android:id="@+id/rxjava5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,6 +63,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Rxjava线程调度器Scheduler "
+        />
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/rxjava6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rxjava模拟长时间获取数据的线程"
         />
 
 </LinearLayout>
