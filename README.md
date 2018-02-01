@@ -65,6 +65,7 @@ Rxjava的看起来很想设计模式中的观察者模式，但是有一点明�
 2、使用just创建，将为你创建一个Observable并自动为你调用onNext( )发射数据，使用just创建也可以发射一个集合List
 
 //被观察者 相当于Button 第二种创建方式
+
         Observable observable = Observable.just("Hello", "我是被观察者二", "Second");
         //观察者  相当于OnClickListener
         Observer<String> observer = new Observer<String>() {
@@ -90,6 +91,7 @@ Rxjava的看起来很想设计模式中的观察者模式，但是有一点明�
 3、使用from创建，同样可以发射集合，但是它与just的区别是：from发射的是每一个Item。换句话说是遍历的发射，而just是一次性的发射
 
 //被观察者 相当于Button 第三种创建方式
+
         String[] words = new String[]{"Hello", "我是被观察者三", "Thrid"};
         Observable observable = Observable.from(words);
         //观察者  相当于OnClickListener
@@ -115,22 +117,27 @@ Rxjava的看起来很想设计模式中的观察者模式，但是有一点明�
 		
 		
 发射集合：
+
 List<String> list = new ArrayList<>();
 list.add("from1");
 list.add("from2");
 list.add("from3");
 fromObservable = Observable.from(list);  //遍历list 每次发送一个
+
 /** 注意，just()方法也可以传list，但是发送的是整个list对象，而from（）发送的是list的一个item** /
 
 4、使用interval( ),创建一个按固定时间间隔发射整数序列的Observable，可用作定时器：
 
 intervalObservable = Observable.interval(1, TimeUnit.SECONDS);//每隔一秒发送一次
+
 5、使用range( ),创建一个发射特定整数序列的Observable，第一个参数为起始值，第二个为发送的个数，如果为0则不发送，负数则抛异常：
 
 rangeObservable = Observable.range(10, 5);//将发送整数10，11，12，13，14
+
 6、使用timer( ),创建一个Observable，它在一个给定的延迟后发射一个特殊的值，等同于Android中Handler的postDelay( )方法：
 
 timeObservable = Observable.timer(3, TimeUnit.SECONDS);  //3秒后发射一个值
+
 7、使用repeat( ),创建一个重复发射特定数据的Observable:
 
 repeatObservable = Observable.just("repeatObservable").repeat(3);//重复发射3次
