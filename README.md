@@ -9,9 +9,7 @@ Rxjava最基本的用法，创建被观察者的几种方式、创建观察者�
 
 3、Subject：Subject是一个比较特殊的对象，既可充当发射源，也可充当接收源，为避免初学者被混淆，本章将不对Subject做过多的解释和使用，重点放在Observable和Observer上，先把最基本方法的使用学会，后面再学其他的都不是什么问题；
 
-4、Subscriber：“订阅者”，也是接收源，那它跟Observer有什么区别呢？Subscriber实现了Observer接口，比Observer多了一个最重要的方法unsubscribe( )，用来取消订阅，当你不再想接收数据了，可以调用unsubscribe( )方法停止接收，
-				
-				Observer 在 subscribe() 过程中,最终也会被转换成 Subscriber 对象，一般情况下，建议使用Subscriber作为接收源；
+4、Subscriber：“订阅者”，也是接收源，那它跟Observer有什么区别呢？Subscriber实现了Observer接口，比Observer多了一个最重要的方法unsubscribe( )，用来取消订阅，当你不再想接收数据了，可以调用unsubscribe( )方法停止接收，Observer 在 subscribe() 过程中,最终也会被转换成 Subscriber 对象，一般情况下，建议使用Subscriber作为接收源；
 
 5、Subscription ：Observable调用subscribe( )方法返回的对象，同样有unsubscribe( )方法，可以用来取消订阅事件；
 
@@ -28,8 +26,8 @@ Rxjava的看起来很想设计模式中的观察者模式，但是有一点明�
 # 基本用法 
 
 一、Observable的创建
-1、使用create( ),最基本的创建方式：
-//被观察者 相当于Button  第一种创建方式
+**1、使用create( ),最基本的创建方式：**
+**//被观察者 相当于Button  第一种创建方式**
         Observable observable = Observable.create(new Observable.OnSubscribe<Object>() {
 
             @Override
